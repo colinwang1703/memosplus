@@ -88,7 +88,7 @@ def main(args):
                 del blacklist[memo_id]
         
         # 5. 让AI自己写一写备忘录
-        if flag < 5:
+        if flag < 5 or random.random() < 0.1:
             print("AI写备忘录...")
             ai_memo_content = wrapper.chat(f"{cfg.role_prompt}\n请写一篇新的备忘录，内容可以是任何你想说的。不要有“备忘录”等提示语、标题、署名。", temperature=cfg.role_temperature)
             hola.create_memo(
