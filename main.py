@@ -55,7 +55,7 @@ def main(args):
             
             # 准备给AI其他人的评论
             comments = hola.get_pretty_comments(memo_id)
-            input_prompt = f"{cfg.role_prompt}\n请根据以下内容决定是否回应，如果不想回应，或发现自己评论得太多了（你是{cfg.role_name}），仅回应'ABORT'，或永远不打算回应的'BLACK'（慎用！但是对于无意义内容，尽快使用），否则，直接输出回应内容：\n{content}\n\n其他评论:\n{comments}"
+            input_prompt = f"{cfg.role_prompt}\n请决定是否回应（建议简短100字，最多250字），如果不想回应，或发现自己评论得太多了（你是{cfg.role_name}），仅回应'ABORT'，或永远不打算回应的'BLACK'（慎用！但是对于无意义内容，尽快使用），否则，直接输出回应内容：\n{content}\n\n其他评论:\n{comments}"
 
             print(f"处理备忘录: {memo_id}")
             print(f"提示语: {input_prompt}")
@@ -65,7 +65,7 @@ def main(args):
             if "ABORT" in response:
                 continue
             elif "BLACK" in response:
-                blacklist[memo_id] = time.time() + random.randint(cfg.role_min_wait_time * 120, cfg.role_max_wait_time * 120)  # 黑名单1分钟到1小时
+                blacklist[memo_id] = time.time() + random.randint(cfg.role_min_wait_time * 240, cfg.role_max_wait_time * 240)  # 黑名单1分钟到1小时
             else:
                 hola.create_comment(
                     memo_id,
@@ -88,7 +88,7 @@ def main(args):
                 del blacklist[memo_id]
         
         # 5. 让AI自己写一写备忘录
-        if flag < 5 or random.random() < 0.1:
+        if flag < 5 or random.random() < 0.5:
             print("AI写备忘录...")
             ai_memo_content = wrapper.chat(f"{cfg.role_prompt}\n请写一篇新的备忘录，内容可以是任何你想说的。不要有“备忘录”等提示语、标题、署名。", temperature=cfg.role_temperature)
             hola.create_memo(
