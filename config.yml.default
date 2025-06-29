@@ -1,0 +1,9 @@
+#+ doctype config
+#+ docver 1.0
+ai:
+  api_key: <your API key here>
+  endpoint: https://api.openai.com/v1
+memos:
+  endpoint: https://127.0.0.1:5230/
+  api_key: <your API key here>
+  insecure: true

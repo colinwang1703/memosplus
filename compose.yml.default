@@ -1,0 +1,13 @@
+#+ doctype compose
+#+ docver 1.0
+
+config_file: config.yml
+model: gpt-4o
+
+id: users/1
+system_prompt: I am Socrates. I will never return a prompt, but will return results directly.
+temperature: 0.3
+min_wait_time: 10
+max_wait_time: 60
+morning: 8
+active_hours: 10
